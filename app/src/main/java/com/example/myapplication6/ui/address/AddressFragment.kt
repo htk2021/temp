@@ -1,5 +1,6 @@
 package com.example.myapplication6.ui.address
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ class AddressFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    //val profileList = ArrayList<Profile>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,16 +51,32 @@ class AddressFragment : Fragment() {
         for (index in 0 until jsonArray.length()){
             val jsonObject = jsonArray.getJSONObject(index)
 
+            val img=jsonObject.getString("img")
             val id = jsonObject.getString("id")
             val language = jsonObject.getString("language")
 
             Log.d("jsonObject", jsonObject.toString())
             Log.d("json_id_language", "$id $language")
 
-            profileList.add(Profile(id, language))
+            profileList.add(Profile(img, id, language, "add"))
         }
 
-        binding.rv.adapter = AddressAdapter(profileList)
+        val adapter = AddressAdapter(requireContext(), profileList)
+        adapter.setOnCancelClickListener { position ->
+            profileList.removeAt(position)
+            adapter.notifyItemRemoved(position)
+            adapter.notifyItemRangeChanged(position, profileList.size)
+        }
+
+        adapter.setOnItemClickListener { position ->
+            val intent = Intent(requireContext(), DetailFragment::class.java)
+            intent.putExtra("name", profileList[position].name)
+            intent.putExtra("age", profileList[position].age)
+            intent.putExtra("additionalInfo", profileList[position].additionalInfo)
+            startActivity(intent)
+        }
+
+        binding.rv.adapter = adapter //AddressAdapter(requireContext(), profileList)
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
         return root
     }
