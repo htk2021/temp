@@ -47,15 +47,15 @@ class GalleryFragment : Fragment() {
 
         // 이미지 저장.
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == RESULT_OK) {
-            var imageUrl = it.data?.data
-            Toast.makeText(requireContext(), imageUrl.toString(), Toast.LENGTH_SHORT).show()
-            val newImg = Image(imageUrl.toString(),imageUrl.toString())
-            imageUrlList.add(newImg)
-            val jsonString = arrayToGson(imageUrlList)
-            MyApplication.prefs.setString("data", jsonString)
+            if(it.resultCode == RESULT_OK) {
+                var imageUrl = it.data?.data
+                Toast.makeText(requireContext(), imageUrl.toString(), Toast.LENGTH_SHORT).show()
+                val newImg = Image(imageUrl.toString(),imageUrl.toString())
+                imageUrlList.add(newImg)
+                val jsonString = arrayToGson(imageUrlList)
+                MyApplication.prefs.setString("data", jsonString)
 
-            adapter?.notifyItemInserted(imageUrlList.size -1)
+                adapter?.notifyItemInserted(imageUrlList.size -1)
             }
         }
         //갤러리에서 이미지 로드하기

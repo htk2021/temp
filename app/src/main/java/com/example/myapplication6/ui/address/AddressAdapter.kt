@@ -1,11 +1,16 @@
 package com.example.myapplication6.ui.address
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication6.databinding.ItemRecyclerviewBinding
 
-class AddressAdapter(val profileList : ArrayList<Profile>) : RecyclerView.Adapter<AddressAdapter.Holder>() {
+class AddressAdapter(private val context: Context, val profileList : ArrayList<Profile>) : RecyclerView.Adapter<AddressAdapter.Holder>() {
+
+    private var onCancelClickListener: ((position: Int) -> Unit)? = null
+
+
     override fun getItemCount(): Int {
         return profileList.size
     }
@@ -16,12 +21,30 @@ class AddressAdapter(val profileList : ArrayList<Profile>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: AddressAdapter.Holder, position: Int) {
+        val resId = context.resources.getIdentifier(profileList[position].img, "drawable", context.packageName)
         holder.name.text = profileList[position].name
         holder.age.text = profileList[position].age
+        holder.img.setImageResource(resId)
+
+        holder.cancelButton.setOnClickListener {
+            onCancelClickListener?.invoke(position)
+        }
+
+
+
     }
+
+    fun setOnCancelClickListener(listener: (position: Int) -> Unit) {
+        onCancelClickListener = listener
+    }
+
+
 
     inner class Holder(val binding: ItemRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
         val name = binding.rvName
         val age = binding.rvAge
+        val img = binding.rvImage
+        val cancelButton = binding.btnCancel
+
     }
 }
