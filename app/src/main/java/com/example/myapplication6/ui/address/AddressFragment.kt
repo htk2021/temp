@@ -1,5 +1,6 @@
-package com.example.myapplication6.ui.home
+package com.example.myapplication6.ui.address
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,16 +10,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication6.databinding.FragmentHomeBinding
+import com.example.myapplication6.databinding.FragmentAddressBinding
 import org.json.JSONArray
 
-class HomeFragment : Fragment() {
+class AddressFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentAddressBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    //val profileList = ArrayList<Profile>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,9 +28,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(AddressViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentAddressBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
@@ -49,16 +51,32 @@ class HomeFragment : Fragment() {
         for (index in 0 until jsonArray.length()){
             val jsonObject = jsonArray.getJSONObject(index)
 
+            val img=jsonObject.getString("img")
             val id = jsonObject.getString("id")
             val language = jsonObject.getString("language")
 
             Log.d("jsonObject", jsonObject.toString())
             Log.d("json_id_language", "$id $language")
 
-            profileList.add(Profile(id, language))
+            profileList.add(Profile(img, id, language, "add"))
         }
 
-        binding.rv.adapter = CustomAdapter(profileList)
+        val adapter = AddressAdapter(requireContext(), profileList)
+        adapter.setOnCancelClickListener { position ->
+            profileList.removeAt(position)
+            adapter.notifyItemRemoved(position)
+            adapter.notifyItemRangeChanged(position, profileList.size)
+        }
+
+        adapter.setOnItemClickListener { position ->
+            val intent = Intent(requireContext(), DetailFragment::class.java)
+            intent.putExtra("name", profileList[position].name)
+            intent.putExtra("age", profileList[position].age)
+            intent.putExtra("additionalInfo", profileList[position].additionalInfo)
+            startActivity(intent)
+        }
+
+        binding.rv.adapter = adapter //AddressAdapter(requireContext(), profileList)
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
         return root
     }

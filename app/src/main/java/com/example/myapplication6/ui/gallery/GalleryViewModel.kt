@@ -1,13 +1,13 @@
-package com.example.myapplication6.ui.home
+package com.example.myapplication6.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class GalleryViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "Address Book" //수정함. 기존 - This is home Fragment
+        value = "This is dashboard Fragment"
     }
     val text: LiveData<String> = _text
 }
