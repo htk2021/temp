@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.myapplication6.R
 import com.example.myapplication6.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
@@ -33,7 +35,10 @@ class DetailFragment : Fragment() {
 
         val textAdditionalInfo: TextView = binding.textAdditionalInfo
         textAdditionalInfo.text = additionalInfo
-
+        binding.goBack.setOnClickListener{
+            val navController = findNavController()
+            navController.navigate(R.id.navigation_home)
+        }
         return root
     }
 

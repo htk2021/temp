@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication6.databinding.MatchingRecyclerviewBinding
 
-class MatchingAdapter(private val context: Context, val profileList : ArrayList<Profile>) : RecyclerView.Adapter<MatchingAdapter.Holder>() {
+class MatchingAdapter(private val context: Context, val profileList : ArrayList<Team>) : RecyclerView.Adapter<MatchingAdapter.Holder>() {
     override fun getItemCount(): Int {
         return profileList.size
     }
