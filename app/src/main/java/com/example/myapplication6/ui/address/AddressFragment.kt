@@ -1,13 +1,17 @@
 package com.example.myapplication6.ui.address
 
+import android.R
+import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
@@ -45,32 +49,11 @@ class AddressFragment : Fragment() {
         val jsonString = MyApplication.prefs.getString("addressData",address_json_string)
         profileList = jsonString.let { gsonToArray(it) }
 
-
-
         //val jsonString = requireActivity().assets.open("simpledata.json").reader().readText()
         Log.d("JSON STR", jsonString)
 
-        /* 2. JSONArray 로 파싱
-        val jsonArray = JSONArray(jsonString)
-        Log.d("jsonArray", jsonArray.toString())
 
-        // 3. JSONArray 순회: 인덱스별 JsonObject 취득후, key에 해당하는 value 확인
-        for (index in 0 until jsonArray.length()){
-            val jsonObject = jsonArray.getJSONObject(index)
-
-            val img=jsonObject.getString("img")
-            val id = jsonObject.getString("id")
-            val language = jsonObject.getString("language")
-
-            Log.d("jsonObject", jsonObject.toString())
-            Log.d("json_id_language", "$id $language")
-
-            profileList.add(Profile(img, id, language, "add"))
-        }
-
-         */
-
-        val adapter = AddressAdapter(requireContext(), profileList)
+        val adapter = AddressAdapter( requireContext(), profileList)
         adapter.setOnCancelClickListener { position ->
             profileList.removeAt(position)
             adapter.notifyItemRemoved(position)
@@ -81,14 +64,36 @@ class AddressFragment : Fragment() {
             bundle.putString("profileList", jsonString)
             this.setFragmentResult("delete", bundle)
         }
-
-
-
-
+        adapter.setOnItemClickListener{ position ->
+            profileList[position] = showDialog(position,profileList[position],profileList,adapter )
+            adapter.notifyDataSetChanged()
+            val jsonString = arrayToGson(profileList)
+            MyApplication.prefs.setString("addressData", jsonString)
+            val bundle = Bundle()
+            bundle.putString("profileList", jsonString)
+            this.setFragmentResult("update", bundle)
+        }
         binding.rv.adapter = adapter //AddressAdapter(requireContext(), profileList)
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
         return root
     }
+    private fun showDialog(position: Int, profile: Profile, profileList: ArrayList<Profile>,
+                           adapter: AddressAdapter): Profile {
+        val dialog  = ProfileDialog(requireContext(),profile, position, profileList, adapter){ modifiedProfile ->
+            profileList[position] = modifiedProfile
+            adapter.notifyDataSetChanged()
+            val jsonString = arrayToGson(profileList)
+            MyApplication.prefs.setString("addressData", jsonString)
+            val bundle = Bundle()
+            bundle.putString("profileList", jsonString)
+            this.setFragmentResult("update", bundle)
+        }
+
+        dialog.show()
+        return dialog.profile
+    }
+
+
     fun arrayToGson(arrayList: ArrayList<Profile>):String{
         val gson = Gson()
         val jsonString = gson.toJson(arrayList)
@@ -104,7 +109,7 @@ class AddressFragment : Fragment() {
         val arrayListType = object : TypeToken<ArrayList<Profile>>() {}.type
         val profileList: ArrayList<Profile> = gson.fromJson(jsonString, arrayListType)
         for(profile in profileList){
-            println("img: ${profile.img}, name : ${profile.name}, age : ${profile.age}, additionalInfo : ${profile.additionalInfo}")
+            println("img: ${profile.img}, name : ${profile.name}, phone: ${profile.phone}")
         }
         return profileList
     }
