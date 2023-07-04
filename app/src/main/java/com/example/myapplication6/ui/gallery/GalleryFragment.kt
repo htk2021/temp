@@ -3,9 +3,15 @@ package com.example.myapplication6.ui.gallery
 
 import com.example.myapplication6.MyApplication
 import android.app.Activity.RESULT_OK
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import com.google.gson.Gson
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +21,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.myapplication6.databinding.FragmentGalleryBinding
 import com.google.gson.reflect.TypeToken
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class GalleryFragment : Fragment() {
@@ -48,9 +58,12 @@ class GalleryFragment : Fragment() {
         // 이미지 저장.
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == RESULT_OK) {
-                var imageUrl = it.data?.data
-                Toast.makeText(requireContext(), imageUrl.toString(), Toast.LENGTH_SHORT).show()
-                val newImg = Image(imageUrl.toString(),imageUrl.toString())
+                var imageUri = it.data?.data
+                //Toast.makeText(requireContext(), imageUrl.toString(), Toast.LENGTH_SHORT).show()
+
+                val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver , imageUri)
+                imageUri = saveImageToInternalStorage(bitmap)
+                val newImg = Image(imageUri.toString(),imageUri.toString())
                 imageUrlList.add(newImg)
                 val jsonString = arrayToGson(imageUrlList)
                 MyApplication.prefs.setString("data", jsonString)
@@ -72,7 +85,25 @@ class GalleryFragment : Fragment() {
 
         _binding = null
     }
+    private fun saveImageToInternalStorage(bitmap: Bitmap): Uri? {
+        val wrapper = ContextWrapper(context)
+        val long_now = System.currentTimeMillis()
+        val imageName = "image"+long_now.toString()+".jpg"
+        Log.d("imagename", imageName)
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+        file = File(file, imageName)
 
+        try {
+            val stream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            stream.flush()
+            stream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return Uri.fromFile(file)
+    }
     fun arrayToGson(arrayList: ArrayList<Image>):String{
         val gson = Gson()
         val jsonString = gson.toJson(arrayList)
