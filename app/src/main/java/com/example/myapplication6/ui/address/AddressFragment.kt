@@ -10,8 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication6.R
 import com.example.myapplication6.databinding.FragmentAddressBinding
 import org.json.JSONArray
+import com.example.myapplication6.ui.address.DetailFragment
+
 
 class AddressFragment : Fragment() {
 
@@ -68,18 +71,32 @@ class AddressFragment : Fragment() {
             adapter.notifyItemRangeChanged(position, profileList.size)
         }
 
-        adapter.setOnItemClickListener { position ->
-            val intent = Intent(requireContext(), DetailFragment::class.java)
-            intent.putExtra("name", profileList[position].name)
-            intent.putExtra("age", profileList[position].age)
-            intent.putExtra("additionalInfo", profileList[position].additionalInfo)
-            startActivity(intent)
-        }
+        adapter.setOnItemClickListener(object : AddressAdapter.OnItemClickListener {
+            override fun onItemClick(address: AddressItem) {
+                showDetail(address)
+            }
+        })
 
         binding.rv.adapter = adapter //AddressAdapter(requireContext(), profileList)
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
         return root
     }
+
+    private fun showDetail(address: AddressItem) {
+        val detailFragment = DetailFragment()
+        val args = Bundle().apply {
+            putString("name", address.text_name)
+            putString("additionalInfo", address.text_additional_info)
+        }
+        detailFragment.arguments = args
+
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, detailFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

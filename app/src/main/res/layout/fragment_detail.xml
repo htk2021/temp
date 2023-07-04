@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detailContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,15 +12,15 @@
         android:text="Name"/>
 
     <TextView
-        android:id="@+id/text_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Age"/>
-
-    <TextView
         android:id="@+id/text_additional_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Additional Info"/>
+
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RETURN" />
 
 </LinearLayout>

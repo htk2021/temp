@@ -40,18 +40,6 @@ class MatchingFragment : Fragment() {
         }
 
         val profileList = ArrayList<Profile>()
-
-        /*
-        profileList.add(Profile("1조", "김병훈", "강은비", ""))
-        profileList.add(Profile("2조", "박성빈", "박윤배", ""))
-        profileList.add(Profile("3조", "남지현", "황태경", ""))
-        profileList.add(Profile("1조", "김병훈", "강은비", ""))
-        profileList.add(Profile("2조", "박성빈", "박윤배", ""))
-        profileList.add(Profile("3조", "남지현", "황태경", ""))
-        profileList.add(Profile("4조", "3인조", "3인조", "3인조"))
-        */
-
-
         val list_student = mutableListOf<String>("송민지","황제욱","심수연","김태형","노태윤","김서경","유석원","김은수","김현호","신민영","김병훈","강은비","박성빈","박윤배","남지현","황태경","정지우","홍은빈","김서현")
         shuffle(list_student)
         for(i: Int in 0..14 step(2)){

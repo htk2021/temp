@@ -3,7 +3,9 @@ package com.example.myapplication6.ui.address
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication6.databinding.ItemRecyclerviewBinding
@@ -11,8 +13,6 @@ import com.example.myapplication6.databinding.ItemRecyclerviewBinding
 class AddressAdapter(private val context: Context, val profileList : ArrayList<Profile>) : RecyclerView.Adapter<AddressAdapter.Holder>() {
 
     private var onCancelClickListener: ((position: Int) -> Unit)? = null
-
-    private var onItemClickListener: ((position: Int) -> Unit)? = null
 
     override fun getItemCount(): Int {
         return profileList.size
@@ -33,9 +33,12 @@ class AddressAdapter(private val context: Context, val profileList : ArrayList<P
             onCancelClickListener?.invoke(position)
         }
 
-        //상세정보
         holder.img.setOnClickListener {
-            onItemClickListener?.invoke(position)
+            val addressItem=AddressItem(
+                text_name = profileList[position].name,
+                text_additional_info=profileList[position].additionalInfo
+            )
+            onItemClickListener?.onItemClick(addressItem)
         }
     }
 
@@ -43,7 +46,12 @@ class AddressAdapter(private val context: Context, val profileList : ArrayList<P
         onCancelClickListener = listener
     }
 
-    fun setOnItemClickListener(listener: (position: Int) -> Unit) {
+    interface OnItemClickListener {
+        fun onItemClick(address: AddressItem)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         onItemClickListener = listener
     }
 

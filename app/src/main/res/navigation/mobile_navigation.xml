@@ -22,4 +22,10 @@
         android:name="com.example.myapplication6.ui.matching.MatchingFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_matching" />
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.example.myapplication6.ui.address.DetailFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_detail" />
 </navigation>
