@@ -1,28 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:background="#E3D2DD"
+        android:background="#BBE1FA"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/rv_name"
-            android:layout_width="wrap_content"
+
+        <ImageView
+            android:id="@+id/rv_image"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="name"
-            android:textSize="32sp"
+            android:clickable="true"
+            android:onClick="showDetail"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#BBE1FA"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rv_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-40dp"
+                android:text="name"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/rv_age"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-15dp"
+                android:text="age"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginStart="30dp"/>
-        <TextView
-            android:id="@+id/rv_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="age"
-            android:textSize="32sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="18dp"/>
+            android:layout_marginStart="-60dp"
+            android:text="-"
+            android:textSize="30sp"/>
+
     </LinearLayout>
 </LinearLayout>

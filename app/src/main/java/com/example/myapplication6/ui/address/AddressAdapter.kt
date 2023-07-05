@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication6.databinding.ItemRecyclerviewBinding
+import com.example.myapplication6.ui.matching.Characteristics
 
-class AddressAdapter(private val context: Context, val profileList : ArrayList<Profile>) : RecyclerView.Adapter<AddressAdapter.Holder>() {
+class AddressAdapter(private val context: Context, val profileList : ArrayList<Characteristics>) : RecyclerView.Adapter<AddressAdapter.Holder>() {
 
     private var onCancelClickListener: ((position: Int) -> Unit)? = null
 
