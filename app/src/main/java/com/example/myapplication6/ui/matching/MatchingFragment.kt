@@ -1,16 +1,20 @@
 package com.example.myapplication6.ui.matching
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.DrawableImageViewTarget
+import com.bumptech.glide.request.target.Target
 import com.example.myapplication6.MyApplication
 import com.example.myapplication6.R
 import com.example.myapplication6.databinding.FragmentMatchingBinding
@@ -18,6 +22,7 @@ import com.example.myapplication6.ui.address.Profile
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.Collections.shuffle
+
 
 class MatchingFragment : Fragment() {
 
@@ -45,32 +50,9 @@ class MatchingFragment : Fragment() {
         val jsonString = MyApplication.prefs.getString("addressData", address_json_string)
 
         profileList = jsonString.let { gsonToArray(it) }
-       /*
-        this.setFragmentResultListener("delete", { key, bundle ->
-            val result = bundle.getString("profileList")
-            profileList = gsonToArray(result)
-        })*/
 
-
-        /*
-        //랜덤추출 코드
-        val student_list : ArrayList<String> = ArrayList(profileList.map { it.name })
-
-        var teamList= ArrayList<Team>()
-        shuffle(student_list)
-
-        if(student_list.size%2==0){ //인원수가 짝수인 경우
-            for(i: Int in 0..student_list.size-1 step(2)){
-                teamList.add(Team((i/2+1).toString()+"조", student_list[i], student_list[i+1], ""))
-            }
-        }
-        else{ //인원수가 홀수인 경우
-            for(i: Int in 0..student_list.size-4 step(2)){
-                teamList.add(Team((i/2+1).toString()+"조", student_list[i], student_list[i+1], ""))
-            }
-            teamList.add(Team(((student_list.size-3)/2+1).toString()+"조", student_list[student_list.size-3], student_list[student_list.size-2], student_list[student_list.size-1]))
-        }
-        */
+      
+      
 
         //greedy
         val student_list : ArrayList<Characteristics> = ArrayList(profileList)
@@ -128,18 +110,17 @@ class MatchingFragment : Fragment() {
             teamList.add(Team((a+1).toString()+"조", student_list[0].name, student_list[1].name, student_list[2].name, student_list[0].img, student_list[1].img, student_list[2].img))
         }
 
-        /*
-        for(i: Int in 0..14 step(2)){
-            teamList.add(Team((i/2+1).toString()+"조", student_list[i], student_list[i+1], ""))
-        }
-        teamList.add(Team("9조", student_list[16], student_list[17], student_list[18]))
-        */
+          //gif 로딩
+        Glide.with(this).asGif().load(R.drawable.loading).into(binding.gifImage)
+
+ 
 
         binding.rv.adapter = MatchingAdapter(requireContext(), teamList)
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
 
         binding.showContentButton.setOnClickListener {
             binding.textNotifications.visibility = View.VISIBLE
+            binding.gifImage.visibility = View.VISIBLE
             binding.rv.visibility = View.VISIBLE
             binding.showContentButton.visibility=View.INVISIBLE
         }
@@ -160,7 +141,10 @@ class MatchingFragment : Fragment() {
         val arrayListType = object : TypeToken<ArrayList<Characteristics>>() {}.type
         val profileList: ArrayList<Characteristics> = gson.fromJson(jsonString, arrayListType)
         for(profile in profileList){
+
+
             println("img: ${profile.img}, name : ${profile.name}, age : ${profile.age}, phone : ${profile.phone}, kaist : ${profile.kaist}, male : ${profile.male}")
+
         }
         return profileList
     }
