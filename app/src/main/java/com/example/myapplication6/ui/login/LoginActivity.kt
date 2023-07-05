@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication6.MainActivity
 import com.example.myapplication6.R
 import com.example.myapplication6.databinding.ActivityLoginBinding
-import com.example.myapplication6.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
