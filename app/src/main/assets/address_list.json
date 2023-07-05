@@ -1,162 +1,164 @@
 [
   {
-    "img" : "a1",
+    "img" : "m_k",
     "name": "황태경",
+    "phone": "010-2222-2222",
+
     "age": "20",
     "male" : "true",
-    "phone": "010-2222-2222",
     "kaist" : "true"
+
   },
   {
-    "img" : "a2",
+    "img" : "fm_k",
     "name": "남지현",
-    "male" : "true",
-    "age": "20",
+    "male" : "false",
+    "age": "21",
     "phone": "010-2222-2222",
     "kaist" : "true"
   },
   {
-  "img" : "a1",
+  "img" : "m_k",
   "name": "김현수",
-  "age": "20",
+  "age": "22",
   "phone": "010-2222-2222",
   "kaist" : "true",
   "male" : "true"
   },
   {
-  "img" : "a1",
-  "name": "황태경",
-  "age": "20",
+  "img" : "fm_k",
+  "name": "아이유",
+  "age": "23",
   "phone": "010-2222-2222",
   "kaist" : "true",
-  "male" : "true"
+  "male" : "false"
   },
   {
-  "img" : "a1",
-  "name": "남지현",
+  "img" : "m_k",
+  "name": "권정열",
   "age": "20",
     "male" : "true",
     "phone": "010-2222-2222",
   "kaist" : "true"
   },
   {
-  "img" : "a1",
+  "img" : "fm_k",
   "name": "이미혜",
-  "age": "20",
+  "age": "21",
   "phone": "010-2222-2222",
-  "male" : "true",
+  "male" : "false",
   "kaist" : "true"
   },
   {
-    "img" : "a1",
+    "img" : "m_k",
+    "name": "박재범",
+    "age": "22",
+    "phone": "010-2222-2222",
+    "male" : "true",
+    "kaist" : "true"
+  },
+  {
+    "img" : "fm_k",
     "name": "이혜원",
-    "age": "20",
+    "age": "23",
     "phone": "010-2222-2222",
-    "male" : "true",
+    "male" : "false",
     "kaist" : "true"
   },
   {
-    "img" : "a1",
+  "img" : "m_k",
+  "name": "김종국",
+  "age": "20",
+  "phone": "010-2222-2222",
+  "male" : "true",
+  "kaist" : "true"
+  },
+  {
+  "img" : "fm_k",
+  "name": "황태경",
+  "age": "21",
+  "phone": "010-2222-2222",
+  "male" : "false",
+  "kaist" : "true"
+  },
+  {
+  "img" : "m_nk",
+  "name": "유재석",
+  "age": "22",
+  "phone": "010-2222-2222",
+  "male" : "true",
+  "kaist" : "false"
+  },
+  {
+    "img" : "fm_nk",
     "name": "황태경",
-    "age": "20",
+    "age": "23",
     "phone": "010-2222-2222",
-    "male" : "true",
-    "kaist" : "true"
+    "male" : "false",
+    "kaist" : "false"
   },
   {
-  "img" : "a1",
-  "name": "황태경",
+  "img" : "m_nk",
+  "name": "스윙스",
   "age": "20",
   "phone": "010-2222-2222",
   "male" : "true",
-  "kaist" : "true"
+  "kaist" : "false"
   },
   {
-  "img" : "a1",
-  "name": "황태경",
-  "age": "20",
-  "phone": "010-2222-2222",
-  "male" : "true",
-  "kaist" : "true"
-  },
-  {
-  "img" : "a1",
-  "name": "황태경",
-  "age": "20",
-  "phone": "010-2222-2222",
-  "male" : "true",
-  "kaist" : "true"
-  },
-  {
-    "img" : "a1",
-    "name": "황태경",
-    "age": "20",
-    "phone": "010-2222-2222",
-    "male" : "true",
-    "kaist" : "true"
-  },
-  {
-  "img" : "a1",
-  "name": "오지연",
-  "age": "20",
-  "phone": "010-2222-2222",
-  "male" : "true",
-  "kaist" : "true"
-  },
-  {
-  "img" : "a1",
+  "img" : "fm_nk",
   "name": "박성빈",
-  "age": "20",
+  "age": "21",
   "phone": "010-2222-2222",
-  "male" : "true",
-  "kaist" : "true"
+  "male" : "false",
+  "kaist" : "false"
   },
   {
-  "img" : "a1",
+  "img" : "m_nk",
   "name": "박윤배",
-  "age": "20",
+  "age": "22",
   "phone": "010-2222-2222",
   "male" : "true",
-  "kaist" : "true"
+  "kaist" : "false"
   },
   {
-    "img" : "a1",
-    "name": "황태경",
+    "img" : "fm_nk",
+    "name": "김태리",
+    "age": "23",
+    "phone": "010-2222-2222",
+    "male" : "false",
+    "kaist" : "false"
+  },
+  {
+    "img" : "m_nk",
+    "name": "이병헌",
     "age": "20",
     "phone": "010-2222-2222",
     "male" : "true",
-    "kaist" : "true"
+    "kaist" : "false"
   },
   {
-    "img" : "a1",
-    "name": "황태경",
-    "age": "20",
-    "phone": "010-2222-2222",
-    "male" : "true",
-    "kaist" : "true"
-  },
-  {
-  "img" : "a1",
-  "name": "황태경",
-  "age": "20",
-  "male" : "true",
+  "img" : "fm_nk",
+  "name": "안유진",
+  "age": "21",
+  "male" : "false",
   "phone": "010-2222-2222",
-  "kaist" : "true"
+  "kaist" : "false"
   },
   {
-    "img" : "a1",
-    "name": "황태경",
-    "age": "20",
+    "img" : "m_nk",
+    "name": "나영석",
+    "age": "22",
     "male" : "true",
     "phone": "010-2222-2222",
-    "kaist" : "true"
+    "kaist" : "false"
   },
   {
-    "img" : "a1",
-    "name": "황태경",
-    "age": "20",
-  "male" : "true",
+    "img" : "fm_nk",
+    "name": "이영지",
+    "age": "23",
+  "male" : "false",
   "phone": "010-2222-2222",
-    "kaist" : "true"
+    "kaist" : "false"
   }
 ]

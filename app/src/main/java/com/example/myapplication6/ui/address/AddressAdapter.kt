@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication6.databinding.ItemRecyclerviewBinding
+import com.example.myapplication6.ui.matching.Characteristics
 
 class AddressAdapter( private val context: Context, val profileList : ArrayList<Profile>) : RecyclerView.Adapter<AddressAdapter.Holder>() {
+
 
     private var onCancelClickListener: ((position: Int) -> Unit)? = null
     private var onItemClickListener: ((position: Int) -> Unit)? = null

@@ -27,32 +27,83 @@
             android:orientation="horizontal"
             android:textAlignment="center">
 
-            <TextView
-                android:id="@+id/name_1"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
                 android:layout_marginStart="0dp"
-                android:text="김김김"
-                android:textSize="25sp" />
+                android:gravity="center">
 
-            <TextView
-                android:id="@+id/name_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="30dp"
-                android:text="김김김"
-                android:textSize="25sp" />
+                <ImageView
+                    android:id="@+id/image_1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/m_k"/>
 
-            <TextView
-                android:id="@+id/name_3"
+                <TextView
+                    android:id="@+id/name_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="김김김"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
                 android:layout_marginStart="30dp"
-                android:text="김김김"
-                android:textSize="25sp" />
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/image_2"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/m_k"/>
+
+                <TextView
+                    android:id="@+id/name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="김김김"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:gravity="center"
+                android:id="@+id/extra_content_layout">
+
+                <ImageView
+                    android:id="@+id/image_3"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/m_k"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/name_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="김김김"
+                    android:textSize="25sp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
