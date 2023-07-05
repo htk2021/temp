@@ -49,21 +49,60 @@ class MatchingFragment : Fragment() {
 
         profileList = jsonString.let { gsonToArray(it) }
 
-        val student_list : ArrayList<String> = ArrayList(profileList.map { it.name })
-
-        var teamList= ArrayList<Team>()
+        //greedy
+        val student_list : ArrayList<Profile> = ArrayList(profileList)
         shuffle(student_list)
+        var teamList= ArrayList<Team>()
 
         if(student_list.size%2==0){ //인원수가 짝수인 경우
-            for(i: Int in 0..student_list.size-1 step(2)){
-                teamList.add(Team((i/2+1).toString()+"조", student_list[i], student_list[i+1], ""))
+            var a: Int = 0
+            val ori_size=student_list.size/2
+            while(a<ori_size){
+                var min_idx=1
+                var min_temp=100 //무한대 역할
+                for(i: Int in 1..student_list.size-1){
+                    if(count_similarity(student_list[0],student_list[i])==0){
+                        min_idx=i
+                        min_temp=0
+                        break
+                    }
+                    else if(count_similarity(student_list[0],student_list[i])<min_temp){
+                        min_idx=i
+                        min_temp=count_similarity(student_list[0],student_list[i])
+                    }
+                }
+                a++
+                teamList.add(Team(a.toString()+"조", student_list[0].name, student_list[min_idx].name, "", student_list[0].img, student_list[min_idx].img, ""))
+
+                student_list.removeAt(min_idx)
+                student_list.removeAt(0)
             }
         }
         else{ //인원수가 홀수인 경우
-            for(i: Int in 0..student_list.size-4 step(2)){
-                teamList.add(Team((i/2+1).toString()+"조", student_list[i], student_list[i+1], ""))
+            var a: Int = 0
+            val ori_size=(student_list.size-3)/2
+            while(a<ori_size){
+                var min_idx=1
+                var min_temp=100 //무한대 역할
+                for(i: Int in 1..student_list.size-1){
+                    var fortest=count_similarity(student_list[0],student_list[i])
+                    if(count_similarity(student_list[0],student_list[i])==0){
+                        min_idx=i
+                        min_temp=0
+                        break
+                    }
+                    else if(count_similarity(student_list[0],student_list[i])<min_temp){
+                        min_idx=i
+                        min_temp=count_similarity(student_list[0],student_list[i])
+                    }
+                }
+                a++
+                teamList.add(Team(a.toString()+"조", student_list[0].name, student_list[min_idx].name, "", student_list[0].img, student_list[min_idx].img, ""))
+
+                student_list.removeAt(min_idx)
+                student_list.removeAt(0)
             }
-            teamList.add(Team(((student_list.size-3)/2+1).toString()+"조", student_list[student_list.size-3], student_list[student_list.size-2], student_list[student_list.size-1]))
+            teamList.add(Team((a+1).toString()+"조", student_list[0].name, student_list[1].name, student_list[2].name, student_list[0].img, student_list[1].img, student_list[2].img))
         }
 
         //gif 로딩
@@ -82,11 +121,15 @@ class MatchingFragment : Fragment() {
         return root
     }
 
+    fun count_similarity(A:Profile, B:Profile):Int{
+        return (if (A.male == B.male) 2 else 0) + (if (A.age == B.age) 1 else 0) + (if (A.kaist == B.kaist) 2 else 0)
+    }
+
     // 프로필 리스트를 ARRAY로 변환
     fun gsonToArray(jsonString:String):ArrayList<Profile>{
         if(jsonString==""){
             return arrayListOf<Profile>(
-                    )
+            )
         }
         val gson = Gson()
         val arrayListType = object : TypeToken<ArrayList<Profile>>() {}.type
